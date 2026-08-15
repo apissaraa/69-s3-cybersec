@@ -5,9 +5,9 @@ services:
     ports:
       - "54327:5432"
     environment:
-      POSTGRES_USER: apissara
-      POSTGRES_PASSWORD: apissara
-      POSTGRES_DB: apissara
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_DB}
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
@@ -24,3 +24,4 @@ services:
 
 volumes:
   postgres_data:
+
