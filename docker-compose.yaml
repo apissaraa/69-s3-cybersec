@@ -5,9 +5,9 @@ services:
     ports:
       - "54327:5432"
     environment:
-      POSTGRES_USER: apissara
-      POSTGRES_PASSWORD: apissara
-      POSTGRES_DB: apissara
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_DB}
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
@@ -17,8 +17,8 @@ services:
     ports:
       - "8083:80"
     environment:
-      PGADMIN_DEFAULT_EMAIL: apissara-j@rmutp.ac.th
-      PGADMIN_DEFAULT_PASSWORD: apissara
+      PGADMIN_DEFAULT_EMAIL: ${ADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${ADMIN_PASSWORD}
     depends_on:
       - db
 
