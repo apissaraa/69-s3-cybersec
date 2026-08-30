@@ -3,40 +3,32 @@ services:
     image: postgres:16-alpine
     container_name: 69-s3-db
     ports:
-     - "54327:5432"
+      - 54327:5432
     environment:
-      POSTGRES_USER: ${DATABASE_USER}
-      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
-      POSTGRES_DB: ${DATABASE_DB}
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_DB=${DATABASE_DB}
 
   admin:
     image: dpage/pgadmin4
     container_name: 69-s3-admin
     ports:
-      - "8083:80"
+      - 8083:80
     environment:
-      PGADMIN_DEFAULT_EMAIL: ${ADMIN_EMAIL}
-      PGADMIN_DEFAULT_PASSWORD: ${ADMIN_PASSWORD}
-    depends_on:
-      - db
+      - PGADMIN_DEFAULT_EMAIL=apissara-j@rmutp.ac.th
+      - PGADMIN_DEFAULT_PASSWORD=apissara
 
   app:
     image: prawee/strapi
     container_name: 69-s3-app
     ports:
-      - "9093:1337"
+      - 8080:1337
     environment:
-      DATABASE_CLIENT: ${APP_DATABASE_CLIENT}
-      DATABASE_NAME: ${APP_DATABASE_NAME}
-      DATABASE_HOST: ${APP_DATABASE_HOST}
-      DATABASE_PORT: ${APP_DATABASE_PORT}
-      DATABASE_USERNAME: ${APP_DATABASE_USERNAME}
-      DATABASE_PASSWORD: ${APP_DATABASE_PASSWORD}
+      - DATABASE_CLIENT=postgres
+      - DATABASE_NAME=${DATABASE_DB}
+      - DATABASE_HOST=db
+      - DATABASE_PORT=5432
+      - DATABASE_USERNAME=${DATABASE_USER}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
     depends_on:
       - db
-
-volumes:
-  postgres_data:
-
